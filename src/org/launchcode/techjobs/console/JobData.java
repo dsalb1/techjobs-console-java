@@ -4,6 +4,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -51,6 +52,13 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
+        /*
+        ArrayList<HashMap<String, String>> allJobsCopy = new ArrayList<>();
+
+        for (HashMap<String, String> record : allJobs) {
+            allJobsCopy.add(record);
+        }
+        */
         return allJobs;
     }
 
@@ -76,11 +84,30 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
 
+        return jobs;
+    }
+
+    /**
+     *
+     */
+    public static ArrayList<HashMap<String, String>> findByValue(String searchTerm) {
+
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+            for (String value : row.values()) {
+                if (value.toLowerCase().contains(searchTerm.toLowerCase())) {
+                    jobs.add(row);
+                }
+            }
+        }
         return jobs;
     }
 
