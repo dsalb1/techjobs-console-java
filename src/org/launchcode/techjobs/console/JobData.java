@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,6 +45,8 @@ public class JobData {
             }
         }
 
+        Collections.sort(values);
+
         return values;
     }
 
@@ -59,7 +62,10 @@ public class JobData {
             allJobsCopy.add(record);
         }
         */
-        return allJobs;
+
+        ArrayList<HashMap<String, String>> allJobsCopy = (ArrayList<HashMap<String, String>>)allJobs.clone();
+
+        return allJobsCopy;
     }
 
     /**
